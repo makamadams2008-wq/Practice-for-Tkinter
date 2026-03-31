@@ -1,9 +1,9 @@
 import tkinter as tk
 
 class Stats_Window:
-    """ This class is for the main UI that alows you to chnage week and track honey supplies"""
+    """Create the main window for tracking honey supplies"""
     def __init__(self, root):
-        """Initilises all of the varables for my stats window."""
+        """Initilise all of the varables for my stats window."""
         self.current_honey_supply_label = tk.Label(text="Honey: 10/100000")
         self.current_honey_supply_label.pack()
 
@@ -13,8 +13,11 @@ class Stats_Window:
         self.new_week_button = tk.Button(text= "New Week -->", command = self.new_week)
         self.new_week_button.pack()
 
-    def new_week():
+    def new_week(self):
+        """Update all the values for the next week"""
         pass
 
 if __name__ == "__main__":
-    
+    root = tk.Tk()
+    main_window = Stats_Window(root)
+    root.mainloop()
