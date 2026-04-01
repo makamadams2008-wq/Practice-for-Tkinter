@@ -37,7 +37,7 @@ class Config_Window:
         self.footer_frame.pack()
 
 class Apiary_Window:
-    """Create a window for controlling the different hives"""
+    """Create a window for controlling all the hives"""
     def __init__(self, root):
         """Initilise all of the varables for apiary window."""
         self.apairy_setup_frame = tk.Frame()
@@ -65,7 +65,7 @@ class Apiary_Window:
     def initial_setup(self):
         """Initilise the apairy"""
         pass
-    
+
     def config_enviroment(self):
         """Configure the enviroment"""
         pass
@@ -74,6 +74,47 @@ class Apiary_Window:
         """Add a new hive to the apiary"""
         pass
 
+class Hive_window:
+    """Create a window for controlling individual hives"""
+    def __init__(self, root):
+        """Initilise all of the varables for hive window."""
+        hive_name_label = tk.Label(text="Hive Name")
+        hive_name_label.pack()
+
+        hive_energy_label = tk.Label(text="Hive Energy: 0.9")
+        hive_energy_label.pack()
+
+        hive_population_label= tk.Label(text="4320 Bees")
+        hive_population_label.pack()
+
+        forage_frame = tk.Frame()
+        forage_frame.pack()
+
+        forage_bee_counter_label = tk.Label(text="Bees foraging 143/ 4320") 
+        forage_bee_counter_label.pack()
+
+        forage_bee_counter_entry = tk.Entry(text="Enter the amount of bees you would like to send to forage")
+        forage_bee_counter_entry.pack()
+
+        forage_button = tk.Button(text="Forage", command=self.forage)
+        forage_button.pack()
+
+        new_queen_button = tk.Button(text= "This will link to the config tab")
+        new_queen_button.pack()
+
+        kill_hive_label = tk.Label(text="Kill Hive")
+        kill_hive_label.pack()
+
+        kill_hive_button = tk.Button(text="Enter", command= self.kill_hive)
+        kill_hive_button.pack()
+
+    def forage(self):
+        "Send bees out to forage"
+        pass
+    
+    def kill_hive(self):
+        "Kill the hive and sell resorces"
+        pass
 
 
 if __name__ == "__main__":
