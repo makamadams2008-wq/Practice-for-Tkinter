@@ -116,7 +116,6 @@ class Hive_window:
         "Kill the hive and sell resorces"
         pass
 
-
 if __name__ == "__main__":
     root = tk.Tk()
     main_window = Stats_Window(root)
