@@ -53,3 +53,29 @@ class Hive:
     
     def create_queen(self):
         pass
+
+class Workers:
+
+    def ___init__(self, health, count, energy_capasity, speed, pollen_capacity, strength ):
+
+        self.health = health
+        self.count = count 
+        self.energy_capasity = energy_capasity
+        self.speed = speed
+        self.pollen_capacity = pollen_capacity
+        self.strength = strength
+    
+    def level_up(self):
+        pass
+
+class Queen:
+
+    def ___init__(self, name, production_rate ):
+
+        self.name = name
+        self.production_rate =production_rate
+        self.age_weeks = 0
+        self.alive = True
+    
+    def level_up(self):
+        pass
