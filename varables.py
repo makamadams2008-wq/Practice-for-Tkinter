@@ -50,3 +50,5 @@ locations = {
 }
 
 difiiculty_multipliers = [1.4, 1.2, 1, 0.8, 0.6]
+
+font_stats = ("Arial", 12, "bold")
