@@ -48,3 +48,5 @@ locations = {
         "compitition": 0.5,
     }
 }
+
+difiiculty_multipliers = [1.4, 1.2, 1, 0.8, 0.6]
