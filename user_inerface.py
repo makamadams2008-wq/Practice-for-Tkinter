@@ -43,23 +43,23 @@ class Setup_Window:
         # Nav frame 
         self.nav_frame = config_frame(self.container_frame, 4, 1, True, 0, 0, True)
 
-        self.nav_label = tk.Label(self.nav_frame, text="Makams Hive", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.nav_label = tk.Label(self.nav_frame, text=varables.hive_name, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
         # Name  frame 
         self.name_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
         
-        createEntry(self.name_contnet_frame, "Please pick a name", None)
+        self.name_entry = createEntry(self.name_contnet_frame, "Please pick a name", lambda: self.update_name() )
 
         # Starter location frame 
         self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
 
-        self.origin_contry = self.starter_location_radio = createRadio(self.starter_location_contnet_frame, varables.location_list, "Please Pick A Starter Location", None)
+        varables.hive_location = self.starter_location_radio = createRadio(self.starter_location_contnet_frame, varables.location_list, "Please Pick A Starter Location", None)
 
         # Difficaulty frame 
         self.difficaulty_contnet_frame = config_frame(self.container_frame, 4, 6, False, 1, 0, True)
 
-        self.difficaulty_selected = self.difficualty_radio = createRadio(self.difficaulty_contnet_frame, varables.difficulty_list, "Please Pick A Difficulty", None)
+        varables.difficulty = self.difficualty_radio = createRadio(self.difficaulty_contnet_frame, varables.difficulty_list, "Please Pick A Difficulty", None)
 
         # Footer frame 
         self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
@@ -80,7 +80,12 @@ class Setup_Window:
         
         else:
             self.parent.destroy()
+            stat_window = Stats_Window(config_root(root))
             
+    
+    def update_name(self):
+        varables.hive_name = self.name_entry.get()
+        self.nav_label.config(text=varables.hive_name)
 
     def new_week(self):
         """Change values for new week"""
@@ -104,7 +109,20 @@ class Setup_Window:
 
 class Hive_window:
     """Create a window for controlling individual hives"""
-    def __init__(self, root):
+    def __init__(self, parent):
+
+        # Allows me to destroy window latter
+        self.parent = parent
+
+        #configs the main frame
+        self.container_frame = config_frame(parent, 1, 3, True, 0, 0, False)
+
+        # Nav frame 
+        self.nav_frame = config_frame(self.container_frame, 4, 1, True, 0, 0, True)
+
+        self.nav_label = tk.Label(self.nav_frame, text= varables.hive_name, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
         """Initilise all of the varables for hive window."""
         hive_name_label = tk.Label(text="Hive Name")
         hive_name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
@@ -208,7 +226,7 @@ def createEntry(parent, message, func):
         confirmation_button = tk.Button(parent, text="Confirm", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, command=func)
         confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
 
-        return 
+        return entry
 
 def createRadio(parent, my_list, message, func):
         # Lable
@@ -231,7 +249,6 @@ def createRadio(parent, my_list, message, func):
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Main Game")
+    root.withdraw()
     setup_window = Setup_Window(config_root(root))
-    stat_window = Stats_Window(config_root(root))
-
     root.mainloop()

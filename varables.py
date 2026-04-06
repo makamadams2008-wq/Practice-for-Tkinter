@@ -63,3 +63,4 @@ forground_color = "#FFBB00"
 accent_color = "#78ECDD"
 boader_color = "#ECECEC"
 
+hive_name = "Untitled Hive"
