@@ -1,28 +1,36 @@
 import tkinter as tk
 
-import varables
+from tkinter import messagebox
+
+import variables
 
 class Stats_Window:
     
     """Create the main window for tracking honey supplies"""
     def __init__(self, parent):
-        """Initilise all of the varables for stats window."""
+        """Initilise all of the variables for stats window."""
+
+        # Allows me to destroy window latter
+        self.parent = parent
 
         #configs the main frame
         self.container_frame = config_frame(parent, 4, 2, True, 0, 0, True)
 
         # All of the content for the main frame
-        self.current_honey_supply_label = tk.Label(self.container_frame, text="Honey: 10/100000", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.current_honey_supply_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.honey_required_label = tk.Label(self.container_frame, text="Honey Required This Week", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.honey_required_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.current_week_label = tk.Label(self.container_frame, text="Week 0", font=varables.font_stats, bg = varables.background_color_b, fg = varables.forground_color)
-        self.current_week_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
+        self.current_honey_supply_label = tk.Label(self.container_frame, text=f"{variables.honey}/{variables.honey_quota}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_honey_supply_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
+        
+        self.current_week_label = tk.Label(self.container_frame, text=variables.week, font=variables.font_stats, bg = variables.background_color_b, fg = variables.forground_color)
+        self.current_week_label.grid(row=2, column=0, columnspan=2, sticky = "nsew")
 
-        self.new_week_button = tk.Button(self.container_frame, text= "New Week -->", command = self.new_week, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
-        self.new_week_button.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+        self.hive_stats_label = tk.Label(self.container_frame, text="Hive Stats", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.hive_stats_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
 
-        self.current_week_label = tk.Label(self.container_frame, text="Week 5", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.current_week_label.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+        self.current_week_label = tk.Label(self.container_frame, text=variables.week, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_week_label.grid(row=3, column=0, columnspan=4, sticky = "nsew")
         
 
     def new_week(self):
@@ -32,7 +40,7 @@ class Stats_Window:
 class Setup_Window:
     """Create the main window"""
     def __init__(self, parent):
-        """Initilise all of the varables for apiary window."""
+        """Initilise all of the variables for apiary window."""
 
         # Allows me to destroy window latter
         self.parent = parent
@@ -43,7 +51,7 @@ class Setup_Window:
         # Nav frame 
         self.nav_frame = config_frame(self.container_frame, 4, 1, True, 0, 0, True)
 
-        self.nav_label = tk.Label(self.nav_frame, text=varables.hive_name, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.nav_label = tk.Label(self.nav_frame, text=variables.hive_name, font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
         # Name  frame 
@@ -54,58 +62,39 @@ class Setup_Window:
         # Starter location frame 
         self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
 
-        varables.hive_location = self.starter_location_radio = createRadio(self.starter_location_contnet_frame, varables.location_list, "Please Pick A Starter Location", None)
+        variables.hive_location = self.starter_location_radio = createRadio(self.starter_location_contnet_frame, variables.location_list, "Please Pick A Starter Location", None)
 
         # Difficaulty frame 
         self.difficaulty_contnet_frame = config_frame(self.container_frame, 4, 6, False, 1, 0, True)
 
-        varables.difficulty = self.difficualty_radio = createRadio(self.difficaulty_contnet_frame, varables.difficulty_list, "Please Pick A Difficulty", None)
+        variables.difficulty = self.difficualty_radio = createRadio(self.difficaulty_contnet_frame, variables.difficulty_list, "Please Pick A Difficulty", None)
 
         # Footer frame 
         self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
 
-        self.name_confirmation_button = tk.Button(self.footer_frame, text="Next Page -->", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color, command =self.next_page)
+        self.name_confirmation_button = tk.Button(self.footer_frame, text="Next Page -->", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.next_page)
         self.name_confirmation_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
     def next_page(self):
-        if varables.current_window == "name_contnet_frame":  
+        if variables.current_window == "name_contnet_frame":  
             self.name_contnet_frame.grid_forget()
             self.starter_location_contnet_frame.grid(row=1, column=0, sticky="nsew")
-            varables.current_window = "starter_location_contnet_frame"
+            variables.current_window = "starter_location_contnet_frame"
 
-        elif varables.current_window == "starter_location_contnet_frame":
+        elif variables.current_window == "starter_location_contnet_frame":
             self.starter_location_contnet_frame.grid_forget()
             self.difficaulty_contnet_frame.grid(row=1, column=0, sticky="nsew")
-            varables.current_window = "difficaulty_contnet_frame"
+            variables.current_window = "difficaulty_contnet_frame"
         
         else:
             self.parent.destroy()
-            stat_window = Stats_Window(config_root(root))
+            main_window.parent.deiconify()
+            stat_window.parent.deiconify()
             
     
     def update_name(self):
-        varables.hive_name = self.name_entry.get()
-        self.nav_label.config(text=varables.hive_name)
-
-    def new_week(self):
-        """Change values for new week"""
-        pass
-
-    def apiary_config(self):
-        """Configure the apairy"""
-        pass
-
-    def initial_setup(self):
-        """Initilise the apairy"""
-        pass
-
-    def config_enviroment(self):
-        """Configure the enviroment"""
-        pass
-
-    def add_hive(self):
-        """Add a new hive to the apiary"""
-        pass
+        variables.hive_name = self.name_entry.get()
+        self.nav_label.config(text=variables.hive_name)
 
 class Hive_window:
     """Create a window for controlling individual hives"""
@@ -115,71 +104,102 @@ class Hive_window:
         self.parent = parent
 
         #configs the main frame
-        self.container_frame = config_frame(parent, 1, 3, True, 0, 0, False)
+        self.container_frame = config_frame(parent, 1, 2, True, 0, 0, False)
 
         # Nav frame 
-        self.nav_frame = config_frame(self.container_frame, 4, 1, True, 0, 0, True)
+        self.nav_frame = config_frame(self.container_frame, 4, 2, True, 0, 0, True)
 
-        self.nav_label = tk.Label(self.nav_frame, text= varables.hive_name, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.nav_label = tk.Label(self.nav_frame, text= variables.hive_name, font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        """Initilise all of the varables for hive window."""
-        hive_name_label = tk.Label(text="Hive Name")
-        hive_name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.action_label = tk.Label(self.nav_frame, text= "Actions", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.action_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
 
-        hive_energy_label = tk.Label(text="Hive Energy: 0.9")
-        hive_energy_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        # Actions frame 
 
-        hive_population_label= tk.Label(text="4320 Bees")
-        hive_population_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.content_frame = config_frame(self.container_frame, 4, 5, True, 1, 0, True)
 
-        forage_frame = tk.Frame()
-        forage_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.hybernate_action_button = tk.Button(self.content_frame, text="Hybernate", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.hybernate)
+        self.hybernate_action_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        forage_bee_counter_label = tk.Label(text="Bees foraging 143/ 4320") 
-        forage_bee_counter_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.exspand_hive_action_button = tk.Button(self.content_frame, text="Incresse Population", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command = self.exspand_hive)
+        self.exspand_hive_action_button.grid(row=1, column=0, columnspan=4, sticky = "nsew")
 
-        forage_bee_counter_entry = tk.Entry(text="Enter the amount of bees you would like to send to forage")
-        forage_bee_counter_entry.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.forage_action_button = tk.Button(self.content_frame, text="Forage For Honey", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.forage_for_honey)
+        self.forage_action_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
 
-        forage_button = tk.Button(text="Forage", command=self.forage)
-        forage_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.level_up_action_button = tk.Button(self.content_frame, text="Level Up Bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.level_up_bees)
+        self.level_up_action_button.grid(row=3, column=0, columnspan=4, sticky = "nsew")
 
-        new_queen_button = tk.Button(text= "This will link to the config tab")
-        new_queen_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.give_up_action_button = tk.Button(self.content_frame, text="Give up", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.give_up)
+        self.give_up_action_button.grid(row=4, column=0, columnspan=4, sticky = "nsew")
 
-        kill_hive_label = tk.Label(text="Kill Hive")
-        kill_hive_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        kill_hive_button = tk.Button(text="Enter", command= self.kill_hive)
-        kill_hive_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+    def hybernate(self):
+        messagebox.showinfo("Hybernating", "Your hive bees are currently hybernating, this is restoring there energy levels and starting a new week")
 
-    def forage(self):
-        "Send bees out to forage"
+    def exspand_hive(self):
+        self.exspand_widow =Exspand_Hive(config_root(self.parent))
+        self.parent.withdraw()
+
+    def forage_for_honey(self):
+        messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
+        #next week
+        messagebox.showinfo("Back from foraging", "Your bees have arived back from foraging where they found 12000 honey")
+
         pass
+    def level_up_bees(self):
+        messagebox.askyesno("Level up bees", "are you sure you want to level up your bees by 10 percent for 100 honey?")
+
+    def give_up(self):
+        messagebox.askyesno("Giving up already?", "Are you sure you want to give up?")
+
     
     def kill_hive(self):
         "Kill the hive and sell resorces"
         pass
 
-class Config_Window:
-    """Update & create values for the bees, hives, and apiary"""
-    def __init__(self, root):
-        """Initilise all of the varables for connfig window."""
-        self.nav_bar_frame = tk.Frame()
-        self.nav_bar_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+class Exspand_Hive:
 
-        self.apairy_frame = tk.Frame()
-        self.apairy_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+    def __init__(self, parent):
+
+        # Allows me to destroy window latter
+        self.parent = parent
+
+        self.add_bee_count = 0
+        #configs the main frame
+        self.container_frame = config_frame(parent, 4, 3, True, 0, 0, False)
+
+        self.nav_label = tk.Label(self.container_frame, text= "Incress Population", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        self.count_label = tk.Label(self.container_frame, text= f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.count_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        self.minus_bees = tk.Button(self.container_frame, text="- 100 bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.minus_from_bees)
+        self.minus_bees.grid(row=1, column=0, columnspan=2, sticky = "nsew")
+
+        self.add_bees = tk.Button(self.container_frame, text="+ 100 bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.add_to_bees)
+        self.add_bees.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+
+        self.conffirmation_button = tk.Button(self.container_frame, text="Conffirm", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.adapt_total)
+        self.conffirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+
+
+    def add_to_bees(self):
+        self.add_bee_count += 100
+        self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
+    def minus_from_bees(self):
+        self.add_bee_count -= 100
+        self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
+    
+    def adapt_total(self):
+        variables.bee_population += self.add_bee_count
+        self.parent.destroy()
+        main_window.parent.deiconify()
+
         
-        self.worker_bee_frame = tk.Frame()
-        self.worker_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.queen_bee_frame = tk.Frame()
-        self.queen_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-
-        self.footer_frame = tk.Frame()
-        self.footer_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
 
 def config_root(parent):
@@ -192,7 +212,7 @@ def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
 
     """Configure the frames"""
     # A frame for all content
-    frame = tk.Frame(parent, bg = varables.background_color_a, highlightthickness=0)
+    frame = tk.Frame(parent, bg = variables.background_color_a, highlightthickness=0)
     if(visability == True):
         frame.grid(row=row_pos, column=col_pos, sticky="nsew")
     
@@ -214,23 +234,23 @@ def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
     return frame
 
 def createEntry(parent, message, func):
-        label = tk.Label(parent, text=message, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        label = tk.Label(parent, text=message, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        enter_here_label = tk.Label(parent, text="Enter Here:", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        enter_here_label = tk.Label(parent, text="Enter Here:", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         enter_here_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
 
-        entry = tk.Entry(parent, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        entry = tk.Entry(parent, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         entry.grid(row=1, column=2, columnspan=2, sticky = "nsew")
 
-        confirmation_button = tk.Button(parent, text="Confirm", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, command=func)
+        confirmation_button = tk.Button(parent, text="Confirm", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color, command=func)
         confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
 
         return entry
 
 def createRadio(parent, my_list, message, func):
         # Lable
-        my_label = tk.Label(parent, text= message, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        my_label = tk.Label(parent, text= message, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         my_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
         
         # Setup
@@ -239,7 +259,7 @@ def createRadio(parent, my_list, message, func):
         radios = []
         # Creating Radials
         for i, item in enumerate(my_list):
-            newRadio = tk.Radiobutton(parent, text = str(item), variable = list_variable, value=item, command=func, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, selectcolor = varables.background_color_b)
+            newRadio = tk.Radiobutton(parent, text = str(item), variable = list_variable, value=item, command=func, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color, selectcolor = variables.background_color_b)
             newRadio.grid(row=i+1, column=0, columnspan= 6, sticky="sew")
             radios.append(newRadio)
         # Returns the instance verable
@@ -250,5 +270,13 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("Main Game")
     root.withdraw()
+
     setup_window = Setup_Window(config_root(root))
+
+    stat_window = Stats_Window(config_root(root))
+    stat_window.parent.withdraw()
+
+    main_window = Hive_window(config_root(root))
+    main_window.parent.withdraw()
+
     root.mainloop()

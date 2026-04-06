@@ -64,3 +64,10 @@ accent_color = "#78ECDD"
 boader_color = "#ECECEC"
 
 hive_name = "Untitled Hive"
+hive_location = "Mexico"
+difficulty = "easy"
+
+bee_population = 0
+week = 0
+honey = 0
+honey_quota = 0
