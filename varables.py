@@ -1,3 +1,4 @@
+location_list = ["Mexico", "China", "Germany", "Kenya", "New Zealand", "Peru"]
 locations = {
     "Mexico" : {
         "name" :  "Mexico",

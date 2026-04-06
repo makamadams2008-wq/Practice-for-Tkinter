@@ -59,10 +59,11 @@ class Setup_Window:
         self.name_confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
 
         # Difficulty  frame 
-        self.difficulty_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
+        self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, True, 1, 0, True)
 
-        self.name_label = tk.Label(self.difficulty_contnet_frame, text="Please Pick A Starter Location", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.origin_contry = self.starter_location_radio = createRadio(varables.location_list, self.starter_location_contnet_frame, "Please Pick A Starter Location")
+
+
 
         # Footer frame 
         self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
@@ -183,6 +184,23 @@ def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
             frame.rowconfigure(i, weight= 1, minsize="30px")
      
     return frame
+
+def createRadio(myList, parent, message):
+        # Lable
+        my_label = tk.Label(parent, text= message, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        my_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        
+        # Setup
+        list_variable = tk.StringVar()
+        list_variable.set(str(myList[0]))
+        radios = []
+        # Creating Radials
+        for i, item in enumerate(myList):
+            newRadio = tk.Radiobutton(parent, text = str(item), variable = list_variable, value=item, command= None, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, selectcolor = varables.background_color_b)
+            newRadio.grid(row=i+1, column=0, columnspan= 6, sticky="sew")
+            radios.append(newRadio)
+        # Returns the instance verable
+        return list_variable
 
 
 if __name__ == "__main__":
