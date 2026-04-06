@@ -34,6 +34,9 @@ class Setup_Window:
     def __init__(self, parent):
         """Initilise all of the varables for apiary window."""
 
+        # Allows me to destroy window latter
+        self.parent = parent
+
         #configs the main frame
         self.container_frame = config_frame(parent, 1, 3, True, 0, 0, False)
 
@@ -44,33 +47,40 @@ class Setup_Window:
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
         # Name  frame 
-        self.setup_contnet_frame = config_frame(self.container_frame, 4, 3, False, 1, 0, True)
+        self.name_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
         
-        self.name_label = tk.Label(self.setup_contnet_frame, text="Please Pick A Hive Name", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        createEntry(self.name_contnet_frame, "Please pick a name", None)
 
-        self.enter_here_label = tk.Label(self.setup_contnet_frame, text="Enter Here:", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.enter_here_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
+        # Starter location frame 
+        self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
 
-        self.name_entry = tk.Entry(self.setup_contnet_frame, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.name_entry.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+        self.origin_contry = self.starter_location_radio = createRadio(self.starter_location_contnet_frame, varables.location_list, "Please Pick A Starter Location", None)
 
-        self.name_confirmation_button = tk.Button(self.setup_contnet_frame, text="Confirm Name", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
-        self.name_confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+        # Difficaulty frame 
+        self.difficaulty_contnet_frame = config_frame(self.container_frame, 4, 6, False, 1, 0, True)
 
-        # Difficulty  frame 
-        self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, True, 1, 0, True)
-
-        self.origin_contry = self.starter_location_radio = createRadio(varables.location_list, self.starter_location_contnet_frame, "Please Pick A Starter Location")
-
-
+        self.difficaulty_selected = self.difficualty_radio = createRadio(self.difficaulty_contnet_frame, varables.difficulty_list, "Please Pick A Difficulty", None)
 
         # Footer frame 
         self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
 
-        self.name_confirmation_button = tk.Button(self.footer_frame, text="Next Page -->", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.name_confirmation_button = tk.Button(self.footer_frame, text="Next Page -->", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color, command =self.next_page)
         self.name_confirmation_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
+    def next_page(self):
+        if varables.current_window == "name_contnet_frame":  
+            self.name_contnet_frame.grid_forget()
+            self.starter_location_contnet_frame.grid(row=1, column=0, sticky="nsew")
+            varables.current_window = "starter_location_contnet_frame"
+
+        elif varables.current_window == "starter_location_contnet_frame":
+            self.starter_location_contnet_frame.grid_forget()
+            self.difficaulty_contnet_frame.grid(row=1, column=0, sticky="nsew")
+            varables.current_window = "difficaulty_contnet_frame"
+        
+        else:
+            self.parent.destroy()
+            
 
     def new_week(self):
         """Change values for new week"""
@@ -171,32 +181,47 @@ def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
     # Configures rows and columbs differently depending if adaptive = True
     if adaptive == True:
         for i in range(cols):
-            frame.columnconfigure(i, weight= 1, uniform="stat_cols", minsize="50px")
+            frame.columnconfigure(i, weight= 1, uniform="stat_cols", minsize=50)
 
         for i in range(rows):
-            frame.rowconfigure(i, weight= 1, uniform="stat_rows", minsize="30px")
+            frame.rowconfigure(i, weight= 1, uniform="stat_rows", minsize=20)
 
     else:
         for i in range(cols):
-            frame.columnconfigure(i, weight= 1, minsize="50px")
+            frame.columnconfigure(i, weight= 1, minsize=50)
 
         for i in range(rows):
-            frame.rowconfigure(i, weight= 1, minsize="30px")
+            frame.rowconfigure(i, weight= 1, minsize=20)
      
     return frame
 
-def createRadio(myList, parent, message):
+def createEntry(parent, message, func):
+        label = tk.Label(parent, text=message, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        enter_here_label = tk.Label(parent, text="Enter Here:", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        enter_here_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
+
+        entry = tk.Entry(parent, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        entry.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+
+        confirmation_button = tk.Button(parent, text="Confirm", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, command=func)
+        confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+
+        return 
+
+def createRadio(parent, my_list, message, func):
         # Lable
         my_label = tk.Label(parent, text= message, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
         my_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
         
         # Setup
         list_variable = tk.StringVar()
-        list_variable.set(str(myList[0]))
+        list_variable.set(str(my_list[0]))
         radios = []
         # Creating Radials
-        for i, item in enumerate(myList):
-            newRadio = tk.Radiobutton(parent, text = str(item), variable = list_variable, value=item, command= None, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, selectcolor = varables.background_color_b)
+        for i, item in enumerate(my_list):
+            newRadio = tk.Radiobutton(parent, text = str(item), variable = list_variable, value=item, command=func, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color, selectcolor = varables.background_color_b)
             newRadio.grid(row=i+1, column=0, columnspan= 6, sticky="sew")
             radios.append(newRadio)
         # Returns the instance verable
@@ -206,8 +231,7 @@ def createRadio(myList, parent, message):
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Main Game")
-    main_window = Setup_Window(config_root(root))
+    setup_window = Setup_Window(config_root(root))
     stat_window = Stats_Window(config_root(root))
-    
 
     root.mainloop()

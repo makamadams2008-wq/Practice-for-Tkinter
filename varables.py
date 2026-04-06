@@ -49,11 +49,11 @@ locations = {
         "compitition": 0.5,
     }
 }
-
+difficulty_list = ["Beginner", "Easy", "Medium", "Hard", "Insane"]
 difiiculty_multipliers = [1.4, 1.2, 1, 0.8, 0.6]
 
 # Tk inter styling 
-
+current_window = "name_contnet_frame"
 font_stats = ("Arial", 12, "bold")
 
 background_color_a = "#435457"
