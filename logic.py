@@ -56,14 +56,14 @@ class Hive:
 
 class Workers:
 
-    def ___init__(self, health, count, energy_capasity, speed, pollen_capacity, strength ):
+    def ___init__(self, health, count, energy_capasity, speed, honey_capacity):
 
         self.health = health
         self.count = count 
         self.energy_capasity = energy_capasity
         self.speed = speed
-        self.pollen_capacity = pollen_capacity
-        self.strength = strength
+        self.honey_capacity = honey_capacity
+
     
     def level_up(self):
         pass

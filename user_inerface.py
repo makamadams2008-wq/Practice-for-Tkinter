@@ -17,20 +17,51 @@ class Stats_Window:
         self.container_frame = config_frame(parent, 4, 2, True, 0, 0, True)
 
         # All of the content for the main frame
-        self.honey_required_label = tk.Label(self.container_frame, text="Honey Required This Week", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+
+        # Honey
+        self.honey_required_label = tk.Label(self.container_frame, text="Main Stats", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.honey_required_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.current_honey_supply_label = tk.Label(self.container_frame, text=f"{variables.honey}/{variables.honey_quota}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_honey_supply_label = tk.Label(self.container_frame, text=f"Honey Required This Week: {variables.honey}/{variables.honey_quota}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         self.current_honey_supply_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
+        # Week
+        self.current_week_label = tk.Label(self.container_frame, text=f"Week {variables.week}", font=variables.font_stats, bg = variables.background_color_c, fg = variables.forground_color)
+        self.current_week_label.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+
+        # Energy
+        self.current_energy_label = tk.Label(self.container_frame, text=f"Energy: {variables.energy_level}%", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_energy_label.grid(row=3, column=0, columnspan=4, sticky = "nsew")
+
+        self.hive_stats_label = tk.Label(self.container_frame, text="Other Stats", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_stats_label.grid(row=4, column=0, columnspan=4, sticky = "nsew")
+
+        self.hive_stats_difficulty_label = tk.Label(self.container_frame, text=f"Difficualty: {variables.difficulty.get()}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_stats_difficulty_label.grid(row=5, column=0, columnspan=4, sticky = "nsew")
+
+        self.hive_stats_enviroment_label = tk.Label(self.container_frame, text=f"Enviroment: {variables.hive_location.get()}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_stats_enviroment_label.grid(row=6, column=0, columnspan=4, sticky = "nsew")
+
+        #bees 
+
+        self.current_bee_stats_label = tk.Label(self.container_frame, text=f"Bee Stats", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_bee_stats_label.grid(row=7, column=0, columnspan=4, sticky = "nsew")
+
+        self.hive_population_label = tk.Label(self.container_frame, text=f"Population: {variables.bee_population}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_population_label.grid(row=8, column=0, columnspan=4, sticky = "nsew")
+
+        self.bee_heath_label = tk.Label(self.container_frame, text=f"Bee Health: {variables.bee_health}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_stats_difficulty_label.grid(row=9, column=0, columnspan=4, sticky = "nsew")
+
+        self.hive_energy_capasity_label = tk.Label(self.container_frame, text=f"Energy Capasity: {variables.bee_energy_capacity}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_energy_capasity_label.grid(row=10, column=0, columnspan=4, sticky = "nsew")
+
+        self.bee_speed_label = tk.Label(self.container_frame, text=f"Bee Speed: {variables.bee_speed}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.bee_speed_label.grid(row=11, column=0, columnspan=4, sticky = "nsew")
+
+        self.bee_honey_capasity_label = tk.Label(self.container_frame, text=f"Bee Honey Capasity: {variables.bee_honey_capacity}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.bee_honey_capasity_label.grid(row=12, column=0, columnspan=4, sticky = "nsew")
         
-        self.current_week_label = tk.Label(self.container_frame, text=variables.week, font=variables.font_stats, bg = variables.background_color_b, fg = variables.forground_color)
-        self.current_week_label.grid(row=2, column=0, columnspan=2, sticky = "nsew")
-
-        self.hive_stats_label = tk.Label(self.container_frame, text="Hive Stats", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
-        self.hive_stats_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
-
-        self.current_week_label = tk.Label(self.container_frame, text=variables.week, font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
-        self.current_week_label.grid(row=3, column=0, columnspan=4, sticky = "nsew")
+        
         
 
     def new_week(self):

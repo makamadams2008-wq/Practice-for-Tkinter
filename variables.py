@@ -71,3 +71,9 @@ bee_population = 0
 week = 0
 honey = 0
 honey_quota = 0
+energy_level =  100
+bee_health = 10
+bee_energy_capacity = 10
+bee_speed = 1
+bee_honey_capacity = 10
+
