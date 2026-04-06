@@ -1,79 +1,74 @@
 import tkinter as tk
 
-from varables import font_stats
+import varables
 
 class Stats_Window:
     
     """Create the main window for tracking honey supplies"""
-    def __init__(self, root):
+    def __init__(self, parent):
         """Initilise all of the varables for stats window."""
 
-        # A frame for all content
-        self.main_frame = tk.Frame(root, bg = "red", highlightthickness=0)
-        self.main_frame.grid(row=0, column=0, sticky="nsew")
-        
-        # Configures rows and columbs
-        for i in range(4):
-            self.main_frame.columnconfigure(i, weight= 1, uniform="stat_cols", minsize="50px")
+        #configs the main frame
+        self.container_frame = config_frame(parent, 4, 2, True, 0, 0, True)
 
-        for i in range(2):
-            self.main_frame.rowconfigure(i, weight= 1, uniform="stat_rows", minsize="30px")
-            
         # All of the content for the main frame
-        self.current_honey_supply_label = tk.Label(self.main_frame, text="Honey: 10/100000", font=font_stats, bg="grey")
+        self.current_honey_supply_label = tk.Label(self.container_frame, text="Honey: 10/100000", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
         self.current_honey_supply_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.current_week_label = tk.Label(self.main_frame, text="Week 0", font=font_stats, bg="yellow")
+        self.current_week_label = tk.Label(self.container_frame, text="Week 0", font=varables.font_stats, bg = varables.background_color_b, fg = varables.forground_color)
         self.current_week_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
 
-        self.new_week_button = tk.Button(self.main_frame, text= "New Week -->", command = self.new_week, font=font_stats, bg="yellow")
+        self.new_week_button = tk.Button(self.container_frame, text= "New Week -->", command = self.new_week, font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
         self.new_week_button.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+
+        self.current_week_label = tk.Label(self.container_frame, text="Week 5", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.current_week_label.grid(row=2, column=0, columnspan=4, sticky = "nsew")
         
 
     def new_week(self):
         """Update all the values for the next week"""
         pass
 
-class Config_Window:
-    """Update & create values for the bees, hives, and apiary"""
-    def __init__(self, root):
-        """Initilise all of the varables for connfig window."""
-        self.nav_bar_frame = tk.Frame()
-        self.nav_bar_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-
-        self.apairy_frame = tk.Frame()
-        self.apairy_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-        
-        self.worker_bee_frame = tk.Frame()
-        self.worker_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-
-        self.queen_bee_frame = tk.Frame()
-        self.queen_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-
-        self.footer_frame = tk.Frame()
-        self.footer_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
-
-class Apiary_Window:
-    """Create a window for controlling all the hives"""
-    def __init__(self, root):
+class Setup_Window:
+    """Create the main window"""
+    def __init__(self, parent):
         """Initilise all of the varables for apiary window."""
-        self.apairy_setup_frame = tk.Frame()
-        self.apairy_setup_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.apairy_config_frame = tk.Frame()
-        self.apairy_config_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        #configs the main frame
+        self.container_frame = config_frame(parent, 1, 3, True, 0, 0, False)
 
-        self.enviroment_config_frame = tk.Frame()
-        self.enviroment_config_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        # Nav frame 
+        self.nav_frame = config_frame(self.container_frame, 4, 1, True, 0, 0, True)
 
-        self.active_hives_frame = tk.Frame()
-        self.active_hives_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.nav_label = tk.Label(self.nav_frame, text="Makams Hive", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.add_hive_frame = tk.Frame()
-        self.add_hive_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        # Name  frame 
+        self.setup_contnet_frame = config_frame(self.container_frame, 4, 3, False, 1, 0, True)
+        
+        self.name_label = tk.Label(self.setup_contnet_frame, text="Please Pick A Hive Name", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.new_week_button = tk.Button(text= "New Week -->", command = self.new_week)
-        self.new_week_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        self.enter_here_label = tk.Label(self.setup_contnet_frame, text="Enter Here:", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.enter_here_label.grid(row=1, column=0, columnspan=2, sticky = "nsew")
+
+        self.name_entry = tk.Entry(self.setup_contnet_frame, font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.name_entry.grid(row=1, column=2, columnspan=2, sticky = "nsew")
+
+        self.name_confirmation_button = tk.Button(self.setup_contnet_frame, text="Confirm Name", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.name_confirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+
+        # Difficulty  frame 
+        self.difficulty_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
+
+        self.name_label = tk.Label(self.difficulty_contnet_frame, text="Please Pick A Starter Location", font=varables.font_stats, bg=varables.background_color_c, fg = varables.forground_color)
+        self.name_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        # Footer frame 
+        self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
+
+        self.name_confirmation_button = tk.Button(self.footer_frame, text="Next Page -->", font=varables.font_stats, bg=varables.background_color_b, fg = varables.forground_color)
+        self.name_confirmation_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
 
     def new_week(self):
@@ -138,17 +133,63 @@ class Hive_window:
         "Kill the hive and sell resorces"
         pass
 
+class Config_Window:
+    """Update & create values for the bees, hives, and apiary"""
+    def __init__(self, root):
+        """Initilise all of the varables for connfig window."""
+        self.nav_bar_frame = tk.Frame()
+        self.nav_bar_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        self.apairy_frame = tk.Frame()
+        self.apairy_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+        
+        self.worker_bee_frame = tk.Frame()
+        self.worker_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        self.queen_bee_frame = tk.Frame()
+        self.queen_bee_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+        self.footer_frame = tk.Frame()
+        self.footer_frame.grid(row=0, column=0, columnspan=4, sticky = "nsew")
+
+
 def config_root(parent):
         child_root = tk.Toplevel(parent)
         child_root.grid_columnconfigure(0, weight=1)
         child_root.grid_rowconfigure(0, weight=1)
         return child_root
 
+def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
+
+    """Configure the frames"""
+    # A frame for all content
+    frame = tk.Frame(parent, bg = varables.background_color_a, highlightthickness=0)
+    if(visability == True):
+        frame.grid(row=row_pos, column=col_pos, sticky="nsew")
+    
+    # Configures rows and columbs differently depending if adaptive = True
+    if adaptive == True:
+        for i in range(cols):
+            frame.columnconfigure(i, weight= 1, uniform="stat_cols", minsize="50px")
+
+        for i in range(rows):
+            frame.rowconfigure(i, weight= 1, uniform="stat_rows", minsize="30px")
+
+    else:
+        for i in range(cols):
+            frame.columnconfigure(i, weight= 1, minsize="50px")
+
+        for i in range(rows):
+            frame.rowconfigure(i, weight= 1, minsize="30px")
+     
+    return frame
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Main Game")
-    root.geometry("500x500")
+    main_window = Setup_Window(config_root(root))
     stat_window = Stats_Window(config_root(root))
-    apiary_window = Apiary_Window(config_root(root))
+    
 
     root.mainloop()
