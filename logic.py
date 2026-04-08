@@ -48,7 +48,7 @@ class Hive:
         if variables.bee_population < 0:
             return "All your bees are dead witch is realy hard to do, good game"
 
-        variables.wasp_tax = round(variables.wasp_tax**1.2)
+        variables.wasp_tax = round(variables.wasp_tax**(1.2**(2- variables.difficulty_x)))
         variables.week += 1
         return "continue"
 
