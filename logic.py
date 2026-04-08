@@ -49,13 +49,13 @@ class Hive:
         return random_atrubute, new_value, state
 
     def new_week(self):
-        """Initate on new week."""
+        """Initate on a new week."""
         variables.honey -= variables.wasp_tax
         if variables.honey < 0:
             return f"You got stung by the wasp tax, you survived {variables.week} weeks, good game"
         if variables.bee_population < 0:
             return f"All your bees are dead witch is realy hard to do, you survived {variables.week} weeks, good game"
-        variables.wasp_tax = round(variables.wasp_tax ** (1.2 ** (2 - variables.difficulty_x)))
+        variables.wasp_tax = round(variables.wasp_tax ** (1.05 ** (2 - variables.difficulty_x)))
         variables.week += 1
         return "continue"
 
