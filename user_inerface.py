@@ -60,9 +60,7 @@ class Stats_Window:
         self.bee_speed_label.grid(row=11, column=0, columnspan=4, sticky = "nsew")
 
         self.bee_honey_capasity_label = tk.Label(self.container_frame, text=f"Bee Honey Capasity: {variables.bee_honey_capacity}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
-        self.bee_honey_capasity_label.grid(row=12, column=0, columnspan=4, sticky = "nsew")
-        
-        
+        self.bee_honey_capasity_label.grid(row=12, column=0, columnspan=4, sticky = "nsew")      
 
 class Setup_Window:
     """Create the main window"""
@@ -107,6 +105,7 @@ class Setup_Window:
             if variables.hive_name == "Untitled Hive" or variables.hive_name == "":
                 messagebox.showerror("No change detected", f"Please pick a name and than click confirm!")
                 return
+            main_window.nav_label.config(text=variables.hive_name)
             self.name_contnet_frame.grid_forget()
             self.starter_location_contnet_frame.grid(row=1, column=0, sticky="nsew")
             variables.current_window = "starter_location_contnet_frame"
@@ -126,7 +125,7 @@ class Setup_Window:
         variables.hive_name = self.name_entry.get()
         self.nav_label.config(text=variables.hive_name)
 
-class Hive_window:
+class Hive_Window:
     """Create a window for controlling individual hives"""
     def __init__(self, parent):
 
@@ -368,7 +367,7 @@ if __name__ == "__main__":
     stat_window = Stats_Window(config_root(root))
     stat_window.parent.withdraw()
 
-    main_window = Hive_window(config_root(root))
+    main_window = Hive_Window(config_root(root))
     main_window.parent.withdraw()
-
-''
+    
+    root.mainloop()
