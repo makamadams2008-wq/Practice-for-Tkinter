@@ -103,7 +103,10 @@ class Setup_Window:
         self.name_confirmation_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
     def next_page(self):
-        if variables.current_window == "name_contnet_frame":  
+        if variables.current_window == "name_contnet_frame":
+            if variables.hive_name == "Untitled Hive" or variables.hive_name == "":
+                messagebox.showerror("No change detected", f"Please pick a name and than click confirm!")
+                return
             self.name_contnet_frame.grid_forget()
             self.starter_location_contnet_frame.grid(row=1, column=0, sticky="nsew")
             variables.current_window = "starter_location_contnet_frame"
@@ -224,7 +227,7 @@ class Exspand_Hive:
 
         self.add_bee_count = 0
         #configs the main frame
-        self.container_frame = config_frame(parent, 4, 3, True, 0, 0, False)
+        self.container_frame = config_frame(parent, 4, 4, True, 0, 0, False)
 
         self.nav_label = tk.Label(self.container_frame, text= "Incress Population", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
@@ -240,6 +243,9 @@ class Exspand_Hive:
 
         self.conffirmation_button = tk.Button(self.container_frame, text="Confirm", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.adapt_total)
         self.conffirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
+
+        self.conffirmation_button = tk.Button(self.container_frame, text="Cancel", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.cancel)
+        self.conffirmation_button.grid(row=3, column=0, columnspan=4, sticky = "nsew")
 
 
     def add_to_bees(self):
@@ -258,6 +264,9 @@ class Exspand_Hive:
             messagebox.showerror("Nice try", f"No exploits here!")
 
     def adapt_total(self):
+        if self.add_bee_count == 0:
+            messagebox.showerror("No change detected", f"You Have selected a quantity of 0 bees!")
+            return
         logic.game_hive.incress_population()
         messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {self.add_bee_count} bees, your honey supply has decressed to {variables.honey - self.add_bee_count*5}")
         variables.bee_population += self.add_bee_count
@@ -266,6 +275,9 @@ class Exspand_Hive:
         main_window.config_all()
         self.parent.destroy()
 
+    def cancel(self):
+        self.parent.destroy()
+        main_window.parent.attributes("-disabled", False)
         
 
 
