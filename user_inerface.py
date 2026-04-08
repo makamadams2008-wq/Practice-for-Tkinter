@@ -19,7 +19,7 @@ class Stats_Window:
         # All of the content for the main frame
 
         # Honey
-        self.honey_required_label = tk.Label(self.container_frame, text="Main Stats", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.honey_required_label = tk.Label(self.container_frame, text="Main Stats", font=variables.font_stats, bg=variables.background_color_a, fg = variables.forground_color)
         self.honey_required_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
         self.current_honey_supply_label = tk.Label(self.container_frame, text=f"Honey Required This Week: {variables.honey}/{variables.honey_quota}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
@@ -32,7 +32,7 @@ class Stats_Window:
         self.current_energy_label = tk.Label(self.container_frame, text=f"Energy: {variables.energy_level}%", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         self.current_energy_label.grid(row=3, column=0, columnspan=4, sticky = "nsew")
 
-        self.hive_stats_label = tk.Label(self.container_frame, text="Other Stats", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.hive_stats_label = tk.Label(self.container_frame, text="Other Stats", font=variables.font_stats, bg=variables.background_color_a, fg = variables.forground_color)
         self.hive_stats_label.grid(row=4, column=0, columnspan=4, sticky = "nsew")
 
         self.hive_stats_difficulty_label = tk.Label(self.container_frame, text=f"Difficualty: {variables.difficulty.get()}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
@@ -43,7 +43,7 @@ class Stats_Window:
 
         #bees 
 
-        self.current_bee_stats_label = tk.Label(self.container_frame, text=f"Bee Stats", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_bee_stats_label = tk.Label(self.container_frame, text=f"Bee Stats", font=variables.font_stats, bg=variables.background_color_a, fg = variables.forground_color)
         self.current_bee_stats_label.grid(row=7, column=0, columnspan=4, sticky = "nsew")
 
         self.hive_population_label = tk.Label(self.container_frame, text=f"Population: {variables.bee_population}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
@@ -148,7 +148,7 @@ class Hive_window:
 
         # Actions frame 
 
-        self.content_frame = config_frame(self.container_frame, 4, 5, True, 1, 0, True)
+        self.content_frame = config_frame(self.container_frame, 4, 6, True, 1, 0, True)
 
         self.hybernate_action_button = tk.Button(self.content_frame, text="Hybernate", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.hybernate)
         self.hybernate_action_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
@@ -162,8 +162,13 @@ class Hive_window:
         self.level_up_action_button = tk.Button(self.content_frame, text="Level Up Bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.level_up_bees)
         self.level_up_action_button.grid(row=3, column=0, columnspan=4, sticky = "nsew")
 
+        self.new_week_action_button = tk.Button(self.content_frame, text="New Week", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.new_week)
+        self.new_week_action_button.grid(row=4, column=0, columnspan=4, sticky = "nsew")
+
         self.give_up_action_button = tk.Button(self.content_frame, text="Give up", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.give_up)
-        self.give_up_action_button.grid(row=4, column=0, columnspan=4, sticky = "nsew")
+        self.give_up_action_button.grid(row=5, column=0, columnspan=4, sticky = "nsew")
+
+       
 
 
     def hybernate(self):
@@ -185,6 +190,8 @@ class Hive_window:
     def give_up(self):
         messagebox.askyesno("Giving up already?", "Are you sure you want to give up?")
 
+    def new_week(self):
+        pass
     
     def kill_hive(self):
         "Kill the hive and sell resorces"

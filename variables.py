@@ -67,6 +67,8 @@ hive_name = "Untitled Hive"
 hive_location = "Mexico"
 difficulty = "easy"
 
+difficulty_x = difiiculty_multipliers(difficulty_list.index(difficulty))
+
 bee_population = 0
 week = 0
 honey = 0
@@ -76,4 +78,6 @@ bee_health = 10
 bee_energy_capacity = 10
 bee_speed = 1
 bee_honey_capacity = 10
+
+is_alive = True
 

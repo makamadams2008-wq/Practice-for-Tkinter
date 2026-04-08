@@ -1,81 +1,54 @@
-
-
-class Apiary:
-
-    def __init__(self, name, location, dificualty):
-        self.week_of_year = 0
-        self.name = name 
-        self.location = location
-        self.dificulty = dificualty
-        self.hives = []
-    
-    def new_week(self):
-        pass
-
-    def change_conditions(self):
-        pass
-
-    def change_copitition(self):
-        pass
-
-    def inspect_hive(self):
-        pass
-
-    def create_hive(self):
-        pass
-
-    def kill_hive(self):
-        pass
-
-
+import variables
+import random
 class Hive:
 
-    def __init__(self, name, population):
+    def __init__(self):
+        self.workers = Workers()
+        self.name = variables.hive_name
+        self.alive = True
+        self.hive_energy = variables.energy_level
+        self.honey_stocks = variables.is_alive
+        self.quota = variables.honey_quota
 
-        self.name = name
-        self. alive = True
-        self.population = population 
-        self.hive_energy = 1
-        self.honey_stocks = 0
-        self. honey_capasity = 100
+        # Equations
+        self.location_survivle_rate_expo = 1- (variables.locations[variables.hive_location]["compitition"])**(2 -variables.locations[variables.hive_location]["wind_intecity"] - ((variables.locations[variables.hive_location]["sunlight_hours"] + variables.locations[variables.hive_location]["sunlight_hours"])/27))
+        self.honey_harvest_expo = variables.locations[variables.hive_location]["necter_flow"]**0.5
 
     def forage_for_honey(self):
-        pass
+        self.workers.count*((0.3 + variables.difficulty_x/2)**self.location_survivle_rate_expo)
+        self.honey_stocks+=self.workers.count*self.workers.honey_capacity**(self.honey_harvest_expo)
+        self.new_week()
 
     def hibernate(self):
-        pass
+        self.hive_energy = 100
+        self.new_week()
+
 
     def incress_population(self):
+        self.workers.count += random(0.4, 0.6)
+        self.new_week()
+    
+    def level_up(self):
+        self.workers.level_up()
+        self.new_week()
+
+    def update_dashboard(self):
         pass
 
-    def harvest_honey(self):
-        pass
-    
-    def create_queen(self):
+    def new_week(self):
+        self.update_dashboard()
         pass
 
 class Workers:
 
-    def ___init__(self, health, count, energy_capasity, speed, honey_capacity):
+    def ___init__(self):
 
-        self.health = health
-        self.count = count 
-        self.energy_capasity = energy_capasity
-        self.speed = speed
-        self.honey_capacity = honey_capacity
+        self.health = variables.bee_health
+        self.count = variables.bee_population
+        self.energy_capasity = variables.bee_energy_capacity
+        self.speed = variables.bee_speed
+        self.honey_capacity =variables.bee_honey_capacity
 
-    
-    def level_up(self):
-        pass
-
-class Queen:
-
-    def ___init__(self, name, production_rate ):
-
-        self.name = name
-        self.production_rate =production_rate
-        self.age_weeks = 0
-        self.alive = True
     
     def level_up(self):
         pass
