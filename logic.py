@@ -6,8 +6,8 @@ class Hive:
     def __init__(self):
 
         # Equations
-        self.location_survivle_rate_expo = 1- (variables.locations[variables.hive_location]["compitition"])**(2 -variables.locations[variables.hive_location]["wind_intecity"] - ((variables.locations[variables.hive_location]["sunlight_hours"] + variables.locations[variables.hive_location]["sunlight_hours"])/27))
-        self.honey_harvest_expo = variables.locations[variables.hive_location]["necter_flow"]**0.5
+        self.location_survivle_rate_expo = 1- (variables.LOCATIONS[variables.hive_location]["compitition"])**(2 -variables.LOCATIONS[variables.hive_location]["wind_intecity"] - ((variables.LOCATIONS[variables.hive_location]["sunlight_hours"] + variables.LOCATIONS[variables.hive_location]["sunlight_hours"])/27))
+        self.honey_harvest_expo = variables.LOCATIONS[variables.hive_location]["necter_flow"]**0.5
 
     def forage_for_honey(self):
         bees_before = variables.bee_population
@@ -32,7 +32,7 @@ class Hive:
         return state
     
     def level_up(self):
-        random_atrubute = random.choice(variables.all_atrubutes)
+        random_atrubute = random.choice(variables.ALL_ATRUBUTES)
         curent_value = getattr(variables, random_atrubute)
         boost = (round((math.log(variables.honey/2) ** 1.5 + 100)/100, 2))
         new_value = round(curent_value * boost, 2)
