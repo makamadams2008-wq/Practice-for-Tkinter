@@ -1,8 +1,8 @@
 import tkinter as tk
-
 from tkinter import messagebox
-
 import variables
+import logic
+
 
 class Stats_Window:
     
@@ -62,11 +62,6 @@ class Stats_Window:
         self.bee_honey_capasity_label.grid(row=12, column=0, columnspan=4, sticky = "nsew")
         
         
-        
-
-    def new_week(self):
-        """Update all the values for the next week"""
-        pass
 
 class Setup_Window:
     """Create the main window"""
@@ -148,7 +143,7 @@ class Hive_window:
 
         # Actions frame 
 
-        self.content_frame = config_frame(self.container_frame, 4, 6, True, 1, 0, True)
+        self.content_frame = config_frame(self.container_frame, 4, 5, True, 1, 0, True)
 
         self.hybernate_action_button = tk.Button(self.content_frame, text="Hybernate", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.hybernate)
         self.hybernate_action_button.grid(row=0, column=0, columnspan=4, sticky = "nsew")
@@ -162,40 +157,56 @@ class Hive_window:
         self.level_up_action_button = tk.Button(self.content_frame, text="Level Up Bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.level_up_bees)
         self.level_up_action_button.grid(row=3, column=0, columnspan=4, sticky = "nsew")
 
-        self.new_week_action_button = tk.Button(self.content_frame, text="New Week", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.new_week)
-        self.new_week_action_button.grid(row=4, column=0, columnspan=4, sticky = "nsew")
 
         self.give_up_action_button = tk.Button(self.content_frame, text="Give up", font=variables.font_stats, bg=variables.accent_color, fg = variables.forground_color, command =self.give_up)
-        self.give_up_action_button.grid(row=5, column=0, columnspan=4, sticky = "nsew")
+        self.give_up_action_button.grid(row=4, column=0, columnspan=4, sticky = "nsew")
 
-       
+        
+
+    def config_all(self):
+
+        self.lables_to_config  = [stat_window.current_honey_supply_label, stat_window.current_week_label, stat_window.current_energy_label, stat_window.hive_population_label, stat_window.bee_heath_label, stat_window.hive_energy_capasity_label, stat_window.bee_speed_label, stat_window.bee_honey_capasity_label]
+        self.config_values_to = [f"Honey Required This Week: {variables.honey}/{variables.honey_quota}", f"Week {variables.week}",f"Energy: {variables.energy_level}%",f"Population: {variables.bee_population}",f"Bee Health: {variables.bee_health}", f"Energy Capasity: {variables.bee_energy_capacity}", f"Bee Speed: {variables.bee_speed}", f"Bee Honey Capasity: {variables.bee_honey_capacity}"]
+        
+        for i in range(len(self.lables_to_config)):
+            self.lables_to_config[i].config(text=self.config_values_to[i])
 
 
     def hybernate(self):
         messagebox.showinfo("Hybernating", "Your hive bees are currently hybernating, this is restoring there energy levels and starting a new week")
+        logic.game_hive.hibernate()
+        self.config_all()
 
     def exspand_hive(self):
-        self.exspand_widow =Exspand_Hive(config_root(self.parent))
+        self.exspand_widow = Exspand_Hive(config_root(self.parent))
+        population_incresse= logic.game_hive.incress_population()
+        messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {population_incresse} bees")
         self.parent.withdraw()
+        self.config_all()
 
     def forage_for_honey(self):
-        messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
-        #next week
-        messagebox.showinfo("Back from foraging", "Your bees have arived back from foraging where they found 12000 honey")
+        answer = messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
+        if answer:  
+            honey_found, bees_dead = logic.game_hive.forage_for_honey()
+            messagebox.showinfo("Back from foraging", f"A new week has past your bees have arived back from foraging where they found {honey_found} honey, Unfortunitly {bees_dead} bees died in the prosses.")
+            self.config_all()
 
-        pass
     def level_up_bees(self):
-        messagebox.askyesno("Level up bees", "are you sure you want to level up your bees by 10 percent for 100 honey?")
+        answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random atrabute by {round(variables.percent_mod, 3)}%, are you sure you want to risk it?")
+        if answer:
+            random_atribute, new_value = logic.game_hive.level_up()
+            messagebox.showinfo("Leveled Up", f"A new week has past, your bees {random_atribute} has inscressed to {new_value} but your honey has droped to {variables.honey}.")
+            self.config_all()
 
     def give_up(self):
-        messagebox.askyesno("Giving up already?", "Are you sure you want to give up?")
+        answer = messagebox.askyesno("Giving up already?", "Are you sure you want to give up?")
+        if answer:
+            root.destroy()
 
     def new_week(self):
         pass
     
-    def kill_hive(self):
-        "Kill the hive and sell resorces"
-        pass
+
 
 class Exspand_Hive:
 
@@ -232,7 +243,7 @@ class Exspand_Hive:
         self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
     
     def adapt_total(self):
-        variables.bee_population += self.add_bee_count
+        logic.game_hive.incress_population()
         self.parent.destroy()
         main_window.parent.deiconify()
 

@@ -1,10 +1,13 @@
+import math
+import tkinter as tk
+
 location_list = ["Mexico", "China", "Germany", "Kenya", "New Zealand", "Peru"]
 locations = {
     "Mexico" : {
         "name" :  "Mexico",
         "temriptiure" : 21,
         "sunlight_hours": 12,
-        "wind_intendincy": 0.4,
+        "wind_intecity": 0.4,
         "necter_flow": 0.7,
         "compitition": 0.6,
     },
@@ -12,7 +15,7 @@ locations = {
         "name" :  "China",
         "temriptiure" : 15,
         "sunlight_hours": 11,
-        "wind_intendincy": 0.5,
+        "wind_intecity": 0.5,
         "necter_flow": 0.9,
         "compitition": 0.9,
     },
@@ -20,7 +23,7 @@ locations = {
         "name" :  "Germany",
         "temriptiure" : 10,
         "sunlight_hours": 10,
-        "wind_intendincy": 0.3,
+        "wind_intecity": 0.3,
         "necter_flow": 0.6,
         "compitition": 0.7,
     },
@@ -28,7 +31,7 @@ locations = {
         "name" :  "Kenya",
         "temriptiure" : 25,
         "sunlight_hours": 12,
-        "wind_intendincy": 0.5,
+        "wind_intecity": 0.5,
         "necter_flow": 0.5,
         "compitition": 0.4,
     },
@@ -36,7 +39,7 @@ locations = {
         "name" :  "New Zealand",
         "temriptiure" : 13,
         "sunlight_hours": 11,
-        "wind_intendincy": 0.7,
+        "wind_intecity": 0.7,
         "necter_flow": 0.8,
         "compitition": 0.8,
     },
@@ -44,7 +47,7 @@ locations = {
         "name" :  "Peru",
         "temriptiure" : 19,
         "sunlight_hours": 11,
-        "wind_intendincy": 0.4,
+        "wind_intecity": 0.4,
         "necter_flow": 0.7,
         "compitition": 0.5,
     }
@@ -64,14 +67,14 @@ accent_color = "#78ECDD"
 boader_color = "#ECECEC"
 
 hive_name = "Untitled Hive"
-hive_location = "Mexico"
-difficulty = "easy"
+hive_location = "Mexico" 
+difficulty = "Easy"
 
-difficulty_x = difiiculty_multipliers(difficulty_list.index(difficulty))
+difficulty_x = difiiculty_multipliers[difficulty_list.index(difficulty)]
 
-bee_population = 0
+bee_population = 100
 week = 0
-honey = 0
+honey = 100
 honey_quota = 0
 energy_level =  100
 bee_health = 10
@@ -80,4 +83,6 @@ bee_speed = 1
 bee_honey_capacity = 10
 
 is_alive = True
+
+percent_mod = (math.log(honey/2) ** 1.5 + 100)/100
 
