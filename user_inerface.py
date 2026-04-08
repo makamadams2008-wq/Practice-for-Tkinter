@@ -179,17 +179,23 @@ class Hive_window:
         self.config_all()
 
     def exspand_hive(self):
-        self.parent.attributes("-disabled", True)
-        self.exspand_widow = Exspand_Hive(config_root(self.parent))
+        if variables.energy_level >= 20:
+            self.parent.attributes("-disabled", True)
+            self.exspand_widow = Exspand_Hive(config_root(self.parent))
+        else:
+            messagebox.showerror("Not enough energy", f"Sorry you dont have the required 20 energy for that try hybernating to restore it?")
         
         
 
     def forage_for_honey(self):
         answer = messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
-        if answer:  
-            honey_found, bees_dead = logic.game_hive.forage_for_honey()
-            messagebox.showinfo("Back from foraging", f"A new week has past your bees have arived back from foraging where they found {honey_found} honey, Unfortunitly {bees_dead} bees died in the prosses.")
-            self.config_all()
+        if answer:
+            if variables.energy_level >= 30:  
+                honey_found, bees_dead = logic.game_hive.forage_for_honey()
+                messagebox.showinfo("Back from foraging", f"A new week has past your bees have arived back from foraging where they found {honey_found} honey, Unfortunitly {bees_dead} bees died in the prosses.")
+                self.config_all()
+            else:
+                messagebox.showerror("Not enough energy", f"Sorry you dont have the required 30 energy for that try hybernating to restore it")
 
     def level_up_bees(self):
         percentage = round(math.log(variables.honey/2) ** 1.5, 2)
@@ -237,12 +243,20 @@ class Exspand_Hive:
 
 
     def add_to_bees(self):
-        self.add_bee_count += 100
-        self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
+        if (self.add_bee_count + 100)*5 <= variables.honey:
+            self.add_bee_count += 100
+            self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
+        else:
+             messagebox.showerror("Not enoughg honey", f"You dont have enough honey for that")
+
     def minus_from_bees(self):
-        self.add_bee_count -= 100
-        self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
-    
+        if (self.add_bee_count - 100) >= 0:
+            self.add_bee_count += 100
+            self.add_bee_count -= 100
+            self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
+        else:
+            messagebox.showerror("Nice try", f"No exploits here!")
+
     def adapt_total(self):
         logic.game_hive.incress_population()
         messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {self.add_bee_count} bees, your honey supply has decressed to {variables.honey - self.add_bee_count*5}")

@@ -79,7 +79,7 @@ honey_quota = 0
 energy_level =  100
 bee_health = 10
 bee_energy_capacity = 10
-bee_speed = 1
+bee_speed = 10
 bee_honey_capacity = 10
 
 is_alive = True

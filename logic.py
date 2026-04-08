@@ -17,6 +17,7 @@ class Hive:
         variables.honey += honey_found
         self.new_week()
         bees_dead  = bees_before - variables.bee_population
+        variables.energy_level -= 30
         return honey_found, bees_dead
 
     def hibernate(self):
@@ -24,6 +25,7 @@ class Hive:
         self.new_week()
 
     def incress_population(self):
+        variables.energy_level -= 20
         self.new_week()
     
     def level_up(self):
