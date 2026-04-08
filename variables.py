@@ -75,7 +75,6 @@ difficulty_x = difiiculty_multipliers[difficulty_list.index(difficulty)]
 bee_population = 100
 week = 0
 honey = 100
-honey_quota = 0
 energy_level =  100
 bee_health = 10
 bee_energy_capacity = 10
@@ -84,6 +83,6 @@ bee_honey_capacity = 10
 
 is_alive = True
 
-
+wasp_tax = 50
 
 all_atrubutes = ["bee_health", "bee_energy_capacity", "bee_speed", "bee_honey_capacity"]

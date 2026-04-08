@@ -15,18 +15,21 @@ class Hive:
         variables.bee_population = round(variables.bee_population)
         honey_found = round(variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo))
         variables.honey += honey_found
-        self.new_week()
+        state = self.new_week()
         bees_dead  = bees_before - variables.bee_population
         variables.energy_level -= 30
-        return honey_found, bees_dead
+        return honey_found, bees_dead, state
 
     def hibernate(self):
         variables.energy_level = 100
-        self.new_week()
+        state = self.new_week()
+        return state
 
     def incress_population(self):
+        
         variables.energy_level -= 20
-        self.new_week()
+        state = self.new_week()
+        return state
     
     def level_up(self):
         random_atrubute = random.choice(variables.all_atrubutes)
@@ -35,11 +38,19 @@ class Hive:
         new_value = round(curent_value * boost, 2)
         setattr(variables, random_atrubute, new_value)
         variables.honey *= 0.5
-        self.new_week()
-        return random_atrubute, new_value
+        state = state = self.new_week()
+        return random_atrubute, new_value, state
 
     def new_week(self):
+        variables.honey -= variables.wasp_tax
+        if variables.honey < 0:
+            return "You got stung by the wasp tax, good game"
+        if variables.bee_population < 0:
+            return "All your bees are dead witch is realy hard to do, good game"
+
+        variables.wasp_tax = round(variables.wasp_tax**1.2)
         variables.week += 1
+        return "continue"
 
 
 game_hive = Hive()

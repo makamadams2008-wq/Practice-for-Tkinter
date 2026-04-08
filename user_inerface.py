@@ -23,7 +23,7 @@ class Stats_Window:
         self.honey_required_label = tk.Label(self.container_frame, text="Main Stats", font=variables.font_stats, bg=variables.background_color_a, fg = variables.forground_color)
         self.honey_required_label.grid(row=0, column=0, columnspan=4, sticky = "nsew")
 
-        self.current_honey_supply_label = tk.Label(self.container_frame, text=f"Honey Required This Week: {variables.honey}/{variables.honey_quota}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
+        self.current_honey_supply_label = tk.Label(self.container_frame, text=f"Honey Required This Week: {variables.honey}/{variables.wasp_tax}", font=variables.font_stats, bg=variables.background_color_c, fg = variables.forground_color)
         self.current_honey_supply_label.grid(row=1, column=0, columnspan=4, sticky = "nsew")
         # Week
         self.current_week_label = tk.Label(self.container_frame, text=f"Week {variables.week}", font=variables.font_stats, bg = variables.background_color_c, fg = variables.forground_color)
@@ -50,8 +50,8 @@ class Stats_Window:
         self.hive_population_label = tk.Label(self.container_frame, text=f"Population: {variables.bee_population}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.hive_population_label.grid(row=8, column=0, columnspan=4, sticky = "nsew")
 
-        self.bee_heath_label = tk.Label(self.container_frame, text=f"Bee Health: {variables.bee_health}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
-        self.hive_stats_difficulty_label.grid(row=9, column=0, columnspan=4, sticky = "nsew")
+        self.bee_health_label = tk.Label(self.container_frame, text=f"Bee Health: {variables.bee_health}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
+        self.bee_health_label.grid(row=9, column=0, columnspan=4, sticky = "nsew")
 
         self.hive_energy_capasity_label = tk.Label(self.container_frame, text=f"Energy Capasity: {variables.bee_energy_capacity}", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color)
         self.hive_energy_capasity_label.grid(row=10, column=0, columnspan=4, sticky = "nsew")
@@ -169,8 +169,8 @@ class Hive_window:
 
     def config_all(self):
 
-        self.lables_to_config  = [stat_window.current_honey_supply_label, stat_window.current_week_label, stat_window.current_energy_label, stat_window.hive_population_label, stat_window.bee_heath_label, stat_window.hive_energy_capasity_label, stat_window.bee_speed_label, stat_window.bee_honey_capasity_label]
-        self.config_values_to = [f"Honey Required This Week: {variables.honey}/{variables.honey_quota}", f"Week {variables.week}",f"Energy: {variables.energy_level}%",f"Population: {variables.bee_population}",f"Bee Health: {variables.bee_health}", f"Energy Capasity: {variables.bee_energy_capacity}", f"Bee Speed: {variables.bee_speed}", f"Bee Honey Capasity: {variables.bee_honey_capacity}"]
+        self.lables_to_config  = [stat_window.current_honey_supply_label, stat_window.current_week_label, stat_window.current_energy_label, stat_window.hive_population_label, stat_window.bee_health_label, stat_window.hive_energy_capasity_label, stat_window.bee_speed_label, stat_window.bee_honey_capasity_label]
+        self.config_values_to = [f"Honey Required This Week: {variables.honey}/{variables.wasp_tax}", f"Week {variables.week}",f"Energy: {variables.energy_level}%",f"Population: {variables.bee_population}",f"Bee Health: {variables.bee_health}", f"Energy Capasity: {variables.bee_energy_capacity}", f"Bee Speed: {variables.bee_speed}", f"Bee Honey Capasity: {variables.bee_honey_capacity}"]
         
         for i in range(len(self.lables_to_config)):
             self.lables_to_config[i].config(text=self.config_values_to[i])
@@ -178,7 +178,8 @@ class Hive_window:
 
     def hybernate(self):
         messagebox.showinfo("Hybernating", "Your hive bees are currently hybernating, this is restoring there energy levels and starting a new week")
-        logic.game_hive.hibernate()
+        state = logic.game_hive.hibernate()
+        cheack_condition(state)
         self.config_all()
 
     def exspand_hive(self):
@@ -194,7 +195,8 @@ class Hive_window:
         answer = messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
         if answer:
             if variables.energy_level >= 30:  
-                honey_found, bees_dead = logic.game_hive.forage_for_honey()
+                honey_found, bees_dead, state = logic.game_hive.forage_for_honey()
+                cheack_condition(state)
                 messagebox.showinfo("Back from foraging", f"A new week has past your bees have arived back from foraging where they found {honey_found} honey, Unfortunitly {bees_dead} bees died in the prosses.")
                 self.config_all()
             else:
@@ -204,7 +206,8 @@ class Hive_window:
         percentage = round(math.log(variables.honey/2) ** 1.5, 2)
         answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random atrabute by {percentage}%, are you sure you want to risk it?")
         if answer:
-            random_atribute, new_value = logic.game_hive.level_up()
+            random_atribute, new_value, state = logic.game_hive.level_up()
+            cheack_condition(state)
             messagebox.showinfo("Leveled Up", f"A new week has past, your bees {random_atribute} has inscressed to {new_value} but your honey has droped to {variables.honey}.")
             self.config_all()
 
@@ -213,8 +216,7 @@ class Hive_window:
         if answer:
             root.destroy()
 
-    def new_week(self):
-        pass
+    
     
 
 
@@ -257,7 +259,6 @@ class Exspand_Hive:
 
     def minus_from_bees(self):
         if (self.add_bee_count - 100) >= 0:
-            self.add_bee_count += 100
             self.add_bee_count -= 100
             self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
         else:
@@ -267,10 +268,12 @@ class Exspand_Hive:
         if self.add_bee_count == 0:
             messagebox.showerror("No change detected", f"You Have selected a quantity of 0 bees!")
             return
-        logic.game_hive.incress_population()
         messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {self.add_bee_count} bees, your honey supply has decressed to {variables.honey - self.add_bee_count*5}")
         variables.bee_population += self.add_bee_count
         variables.honey -= self.add_bee_count*5
+        state =logic.game_hive.incress_population()
+        cheack_condition(state)
+        
         main_window.parent.attributes("-disabled", False)
         main_window.config_all()
         self.parent.destroy()
@@ -345,6 +348,15 @@ def createRadio(parent, my_list, message, func):
         # Returns the instance verable
         return list_variable
 
+def cheack_condition(game_state):
+    if game_state == "continue":
+        return
+    else:
+        messagebox.showerror("GAME OVER", game_state)
+        root.quit()
+        root.destroy()
+        import sys
+        sys.exit()
 
 if __name__ == "__main__":
     root = tk.Tk()
@@ -359,4 +371,4 @@ if __name__ == "__main__":
     main_window = Hive_window(config_root(root))
     main_window.parent.withdraw()
 
-    root.mainloop()
+''
