@@ -59,11 +59,11 @@ difiiculty_multipliers = [1.4, 1.2, 1, 0.8, 0.6]
 current_window = "name_contnet_frame"
 font_stats = ("Arial", 12, "bold")
 
-background_color_a = "#435457"
-background_color_b = "#5E6F72"
-background_color_c = "#353D3F"
-forground_color = "#FFBB00"
-accent_color = "#78ECDD"
+background_color_a = "#FBF6C6"
+background_color_b = "#FEFCEC"
+background_color_c = "#FFEAD3"
+forground_color = "#000000"
+accent_color = "#FD9D6D"
 boader_color = "#ECECEC"
 
 hive_name = "Untitled Hive"
