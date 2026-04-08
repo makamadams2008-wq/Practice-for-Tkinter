@@ -1,5 +1,6 @@
 import variables
 import random
+import math
 class Hive:
 
     def __init__(self):
@@ -11,7 +12,8 @@ class Hive:
     def forage_for_honey(self):
         bees_before = variables.bee_population
         variables.bee_population *= ((0.3 + variables.difficulty_x/2)**self.location_survivle_rate_expo)
-        honey_found = variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo)
+        variables.bee_population = round(variables.bee_population)
+        honey_found = round(variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo))
         variables.honey += honey_found
         self.new_week()
         bees_dead  = bees_before - variables.bee_population
@@ -22,17 +24,15 @@ class Hive:
         self.new_week()
 
     def incress_population(self):
-        population_incresse = round(random.uniform(0.4, 0.6)*variables.bee_population, 2)
-        variables.bee_population += population_incresse
         self.new_week()
-        return population_incresse
     
     def level_up(self):
         random_atrubute = random.choice(variables.all_atrubutes)
         curent_value = getattr(variables, random_atrubute)
-        boost = (round(variables.percent_mod, 4))
-        new_value = curent_value * boost
+        boost = (round((math.log(variables.honey/2) ** 1.5 + 100)/100, 2))
+        new_value = round(curent_value * boost, 2)
         setattr(variables, random_atrubute, new_value)
+        variables.honey *= 0.5
         self.new_week()
         return random_atrubute, new_value
 

@@ -84,6 +84,6 @@ bee_honey_capacity = 10
 
 is_alive = True
 
-percent_mod = (math.log(honey/2) ** 1.5 + 100)/100
 
-all_atrubutes = ["health", "count", "energy_capasity", "speed", "honey_capacity"]
+
+all_atrubutes = ["bee_health", "bee_energy_capacity", "bee_speed", "bee_honey_capacity"]

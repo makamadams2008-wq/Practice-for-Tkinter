@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import variables
 import logic
+import math
 
 
 class Stats_Window:
@@ -83,7 +84,7 @@ class Setup_Window:
         # Name  frame 
         self.name_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
         
-        self.name_entry = createEntry(self.name_contnet_frame, "Please pick a name", lambda: self.update_name() )
+        self.name_entry = createEntry(self.name_contnet_frame, "Please pick a name", self.update_name )
 
         # Starter location frame 
         self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
@@ -178,11 +179,10 @@ class Hive_window:
         self.config_all()
 
     def exspand_hive(self):
+        self.parent.attributes("-disabled", True)
         self.exspand_widow = Exspand_Hive(config_root(self.parent))
-        population_incresse= logic.game_hive.incress_population()
-        messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {population_incresse} bees")
-        self.parent.withdraw()
-        self.config_all()
+        
+        
 
     def forage_for_honey(self):
         answer = messagebox.askyesno("Send bees out to forage", "Are you sure you want to send your bees out to forage?")
@@ -192,7 +192,8 @@ class Hive_window:
             self.config_all()
 
     def level_up_bees(self):
-        answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random atrabute by {round(variables.percent_mod, 3)}%, are you sure you want to risk it?")
+        percentage = round(math.log(variables.honey/2) ** 1.5, 2)
+        answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random atrabute by {percentage}%, are you sure you want to risk it?")
         if answer:
             random_atribute, new_value = logic.game_hive.level_up()
             messagebox.showinfo("Leveled Up", f"A new week has past, your bees {random_atribute} has inscressed to {new_value} but your honey has droped to {variables.honey}.")
@@ -231,7 +232,7 @@ class Exspand_Hive:
         self.add_bees = tk.Button(self.container_frame, text="+ 100 bees", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.add_to_bees)
         self.add_bees.grid(row=1, column=2, columnspan=2, sticky = "nsew")
 
-        self.conffirmation_button = tk.Button(self.container_frame, text="Conffirm", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.adapt_total)
+        self.conffirmation_button = tk.Button(self.container_frame, text="Confirm", font=variables.font_stats, bg=variables.background_color_b, fg = variables.forground_color, command =self.adapt_total)
         self.conffirmation_button.grid(row=2, column=0, columnspan=4, sticky = "nsew")
 
 
@@ -244,8 +245,12 @@ class Exspand_Hive:
     
     def adapt_total(self):
         logic.game_hive.incress_population()
+        messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {self.add_bee_count} bees, your honey supply has decressed to {variables.honey - self.add_bee_count*5}")
+        variables.bee_population += self.add_bee_count
+        variables.honey -= self.add_bee_count*5
+        main_window.parent.attributes("-disabled", False)
+        main_window.config_all()
         self.parent.destroy()
-        main_window.parent.deiconify()
 
         
 
