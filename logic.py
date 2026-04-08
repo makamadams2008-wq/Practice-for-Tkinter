@@ -11,7 +11,7 @@ class Hive:
 
     def forage_for_honey(self):
         bees_before = variables.bee_population
-        variables.bee_population *= ((0.3 + variables.difficulty_x/2)**self.location_survivle_rate_expo)
+        variables.bee_population *= ((0.3 + variables.difficulty_x*variables.bee_health*variables.bee_speed/(4000*((variables.week+1)**0.5)))**self.location_survivle_rate_expo)
         variables.bee_population = round(variables.bee_population)
         honey_found = round(variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo))
         variables.honey += honey_found
