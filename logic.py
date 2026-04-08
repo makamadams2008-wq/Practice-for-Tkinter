@@ -1,6 +1,5 @@
 import variables
 import random
-import math
 class Hive:
 
     def __init__(self):
@@ -13,13 +12,13 @@ class Hive:
         bees_before = variables.bee_population
         variables.bee_population *= ((0.3 + variables.difficulty_x/2)**self.location_survivle_rate_expo)
         honey_found = variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo)
-        self.honey_stocks += honey_found
+        variables.honey += honey_found
         self.new_week()
         bees_dead  = bees_before - variables.bee_population
         return honey_found, bees_dead
 
     def hibernate(self):
-        self.hive_energy = 100
+        variables.energy_level = 100
         self.new_week()
 
     def incress_population(self):
@@ -29,28 +28,16 @@ class Hive:
         return population_incresse
     
     def level_up(self):
-        random_atrubute = random.choice(self.workers.all_atrubutes)
-        curent_value = getattr(self.workers, random_atrubute)
+        random_atrubute = random.choice(variables.all_atrubutes)
+        curent_value = getattr(variables, random_atrubute)
         boost = (round(variables.percent_mod, 4))
         new_value = curent_value * boost
-        setattr(self.workers, random_atrubute, new_value)
+        setattr(variables, random_atrubute, new_value)
         self.new_week()
         return random_atrubute, new_value
 
     def new_week(self):
-        self.week += 1
-
-
-class Workers:
-
-    def __init__(self):
-
-        self.health = variables.bee_health
-        self.count = variables.bee_population
-        self.energy_capasity = variables.bee_energy_capacity
-        self.speed = variables.bee_speed
-        self.honey_capacity =variables.bee_honey_capacity
-        self.all_atrubutes = ["health", "count", "energy_capasity", "speed", "honey_capacity"]
+        variables.week += 1
 
 
 game_hive = Hive()

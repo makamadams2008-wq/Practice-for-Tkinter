@@ -86,3 +86,4 @@ is_alive = True
 
 percent_mod = (math.log(honey/2) ** 1.5 + 100)/100
 
+all_atrubutes = ["health", "count", "energy_capasity", "speed", "honey_capacity"]
