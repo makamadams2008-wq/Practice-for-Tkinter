@@ -11,9 +11,9 @@ class Hive:
 
     def forage_for_honey(self):
         bees_before = variables.bee_population
-        variables.bee_population *= ((0.3 + variables.difficulty_x*variables.bee_health*variables.bee_speed/(4000*((variables.week+1)**0.5)))**self.location_survivle_rate_expo)
+        variables.bee_population *= ((0.3 + (variables.difficulty_x+1)**3*variables.bee_health*variables.bee_speed/(4000*((variables.week+1)**0.5)))**self.location_survivle_rate_expo)
         variables.bee_population = round(variables.bee_population)
-        honey_found = round(variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo))
+        honey_found = round(variables.bee_population*variables.bee_honey_capacity**(self.honey_harvest_expo))*variables.bee_energy_capacity/10
         variables.honey += honey_found
         state = self.new_week()
         bees_dead  = bees_before - variables.bee_population
@@ -44,9 +44,9 @@ class Hive:
     def new_week(self):
         variables.honey -= variables.wasp_tax
         if variables.honey < 0:
-            return "You got stung by the wasp tax, good game"
+            return f"You got stung by the wasp tax, you survived {variables.week} weeks, good game"
         if variables.bee_population < 0:
-            return "All your bees are dead witch is realy hard to do, good game"
+            return f"All your bees are dead witch is realy hard to do, you survived {variables.week} weeks, good game"
 
         variables.wasp_tax = round(variables.wasp_tax**(1.2**(2- variables.difficulty_x)))
         variables.week += 1
