@@ -1,4 +1,4 @@
-"""Responable for the front end."""
+"""Responsible for the front end."""
 
 import tkinter as tk
 from tkinter import messagebox
@@ -11,8 +11,8 @@ class StatsWindow:
     """Create the main window for tracking honey supplies."""
 
     def __init__(self, parent):
-        """Initilise all of the variables for stats window."""
-        # Allows me to destroy window latter
+        """Initate all of the variables for stats window."""
+        # Allows me to destroy window later
         self.parent = parent
 
         # Configs the main frame
@@ -38,11 +38,11 @@ class StatsWindow:
         self.hive_stats_label = tk.Label(self.container_frame, text="Other Stats", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_A, fg=variables.FORGROUND_COLOR)
         self.hive_stats_label.grid(row=4, column=0, columnspan=4, sticky="nsew")
 
-        self.hive_stats_difficulty_label = tk.Label(self.container_frame, text=f"Difficualty: {variables.difficulty.get()}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
+        self.hive_stats_difficulty_label = tk.Label(self.container_frame, text=f"Difficulty: {variables.difficulty.get()}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
         self.hive_stats_difficulty_label.grid(row=5, column=0, columnspan=4, sticky="nsew")
 
-        self.hive_stats_enviroment_label = tk.Label(self.container_frame, text=f"Enviroment: {variables.hive_location.get()}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
-        self.hive_stats_enviroment_label.grid(row=6, column=0, columnspan=4, sticky="nsew")
+        self.hive_stats_environment_label = tk.Label(self.container_frame, text=f"Environment: {variables.hive_location.get()}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
+        self.hive_stats_environment_label.grid(row=6, column=0, columnspan=4, sticky="nsew")
 
         # Bees
         self.current_bee_stats_label = tk.Label(self.container_frame, text=f"Bee Stats", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_A, fg=variables.FORGROUND_COLOR)
@@ -54,22 +54,22 @@ class StatsWindow:
         self.bee_health_label = tk.Label(self.container_frame, text=f"Bee Health: {variables.bee_health}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
         self.bee_health_label.grid(row=9, column=0, columnspan=4, sticky="nsew")
 
-        self.hive_energy_capasity_label = tk.Label(self.container_frame, text=f"Energy Capasity: {variables.bee_energy_capacity}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
-        self.hive_energy_capasity_label.grid(row=10, column=0, columnspan=4, sticky="nsew")
+        self.hive_energy_capacity_label = tk.Label(self.container_frame, text=f"Energy capacity: {variables.bee_energy_capacity}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
+        self.hive_energy_capacity_label.grid(row=10, column=0, columnspan=4, sticky="nsew")
 
         self.bee_speed_label = tk.Label(self.container_frame, text=f"Bee Speed: {variables.bee_speed}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
         self.bee_speed_label.grid(row=11, column=0, columnspan=4, sticky="nsew")
 
-        self.bee_honey_capasity_label = tk.Label(self.container_frame, text=f"Bee Honey Capasity: {variables.bee_honey_capacity}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
-        self.bee_honey_capasity_label.grid(row=12, column=0, columnspan=4, sticky="nsew")
+        self.bee_honey_capacity_label = tk.Label(self.container_frame, text=f"Bee Honey capacity: {variables.bee_honey_capacity}", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
+        self.bee_honey_capacity_label.grid(row=12, column=0, columnspan=4, sticky="nsew")
 
 
 class SetupWindow:
     """Create the main window."""
 
     def __init__(self, parent):
-        """Initilise all of the variables for apiary window."""
-        # Allows me to destroy window latter
+        """Initate all of the variables for apiary window."""
+        # Allows me to destroy window later
         self.parent = parent
 
         # Configs the main frame
@@ -81,16 +81,16 @@ class SetupWindow:
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
         # Name  frame
-        self.name_contnet_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
-        self.name_entry = create_entry(self.name_contnet_frame, "Please pick a name", self.update_name)
+        self.name_content_frame = config_frame(self.container_frame, 4, 3, True, 1, 0, True)
+        self.name_entry = create_entry(self.name_content_frame, "Please pick a name", self.update_name)
 
         # Starter location frame
-        self.starter_location_contnet_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
-        variables.hive_location = self.starter_location_radio = create_radio(self.starter_location_contnet_frame, variables.location_list, "Please Pick A Starter Location", None)
+        self.starter_location_content_frame = config_frame(self.container_frame, 4, 7, False, 1, 0, True)
+        variables.hive_location = self.starter_location_radio = create_radio(self.starter_location_content_frame, variables.location_list, "Please Pick A Starter Location", None)
 
         # Difficaulty frame
-        self.difficaulty_contnet_frame = config_frame(self.container_frame, 4, 6, False, 1, 0, True)
-        variables.difficulty = self.difficualty_radio = create_radio(self.difficaulty_contnet_frame, variables.difficulty_list, "Please Pick A Difficulty", None)
+        self.difficulty_content_frame = config_frame(self.container_frame, 4, 6, False, 1, 0, True)
+        variables.difficulty = self.Difficulty_radio = create_radio(self.difficulty_content_frame, variables.difficulty_list, "Please Pick A Difficulty", None)
 
         # Footer frame
         self.footer_frame = config_frame(self.container_frame, 4, 1, True, 2, 0, True)
@@ -99,19 +99,19 @@ class SetupWindow:
 
     def next_page(self):
         """Change the page."""
-        if variables.current_window == "name_contnet_frame":
+        if variables.current_window == "name_content_frame":
             if variables.hive_name == "Untitled Hive" or variables.hive_name == "":
-                messagebox.showerror("No change detected", f"Please pick a name and than click confirm!")
+                messagebox.showerror("No change detected", f"Please pick a name and then click confirm!")
                 return
             main_window.nav_label.config(text=variables.hive_name)
-            self.name_contnet_frame.grid_forget()
-            self.starter_location_contnet_frame.grid(row=1, column=0, sticky="nsew")
-            variables.current_window = "starter_location_contnet_frame"
+            self.name_content_frame.grid_forget()
+            self.starter_location_content_frame.grid(row=1, column=0, sticky="nsew")
+            variables.current_window = "starter_location_content_frame"
 
-        elif variables.current_window == "starter_location_contnet_frame":
-            self.starter_location_contnet_frame.grid_forget()
-            self.difficaulty_contnet_frame.grid(row=1, column=0, sticky="nsew")
-            variables.current_window = "difficaulty_contnet_frame"
+        elif variables.current_window == "starter_location_content_frame":
+            self.starter_location_content_frame.grid_forget()
+            self.difficulty_content_frame.grid(row=1, column=0, sticky="nsew")
+            variables.current_window = "difficulty_content_frame"
 
         else:
             self.parent.destroy()
@@ -129,7 +129,7 @@ class HiveWindow:
     
     def __init__(self, parent):
         """Initate all tk elements."""
-        # Allows me to destroy window latter
+        # Allows me to destroy window later
         self.parent = parent
 
         # Configs the main frame
@@ -148,11 +148,11 @@ class HiveWindow:
 
         self.content_frame = config_frame(self.container_frame, 4, 5, True, 1, 0, True)
 
-        self.hybernate_action_button = tk.Button(self.content_frame, text="Hybernate", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.hybernate)
-        self.hybernate_action_button.grid(row=0, column=0, columnspan=4, sticky="nsew")
+        self.hibernate_action_button = tk.Button(self.content_frame, text="Hibernate", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.hibernate)
+        self.hibernate_action_button.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
-        self.ExspandHive_action_button = tk.Button(self.content_frame, text="Incresse Population", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.ExspandHive)
-        self.ExspandHive_action_button.grid(row=1, column=0, columnspan=4, sticky="nsew")
+        self.expand_hive_action_button = tk.Button(self.content_frame, text="Increase Population", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.expand_hive)
+        self.expand_hive_action_button.grid(row=1, column=0, columnspan=4, sticky="nsew")
 
         self.forage_action_button = tk.Button(self.content_frame, text="Forage For Honey", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.forage_for_honey)
         self.forage_action_button.grid(row=2, column=0, columnspan=4, sticky="nsew")
@@ -164,26 +164,26 @@ class HiveWindow:
         self.give_up_action_button.grid(row=4, column=0, columnspan=4, sticky="nsew")
 
     def config_all(self):
-        """Update the UI ellements."""
-        self.LABELS_TO_CONFIG = [stat_window.current_honey_supply_label, stat_window.current_week_label, stat_window.current_energy_label, stat_window.hive_population_label, stat_window.bee_health_label, stat_window.hive_energy_capasity_label, stat_window.bee_speed_label, stat_window.bee_honey_capasity_label]
-        self.config_values_to = [f"Honey Required This Week: {variables.honey}/{variables.wasp_tax}", f"Week {variables.week}", f"Energy: {variables.energy_level}%", f"Population: {variables.bee_population}", f"Bee Health: {variables.bee_health}", f"Energy Capasity: {variables.bee_energy_capacity}", f"Bee Speed: {variables.bee_speed}", f"Bee Honey Capasity: {variables.bee_honey_capacity}"]
+        """Update the UI elements."""
+        self.LABELS_TO_CONFIG = [stat_window.current_honey_supply_label, stat_window.current_week_label, stat_window.current_energy_label, stat_window.hive_population_label, stat_window.bee_health_label, stat_window.hive_energy_capacity_label, stat_window.bee_speed_label, stat_window.bee_honey_capacity_label]
+        self.config_values_to = [f"Honey Required This Week: {variables.honey}/{variables.wasp_tax}", f"Week {variables.week}", f"Energy: {variables.energy_level}%", f"Population: {variables.bee_population}", f"Bee Health: {variables.bee_health}", f"Energy capacity: {variables.bee_energy_capacity}", f"Bee Speed: {variables.bee_speed}", f"Bee Honey capacity: {variables.bee_honey_capacity}"]
         for i in range(len(self.LABELS_TO_CONFIG)):
             self.LABELS_TO_CONFIG[i].config(text=self.config_values_to[i])
 
-    def hybernate(self):
-        """Activate when user clicks hybernate button."""
-        messagebox.showinfo("Hybernating", "Your hive bees are currently hybernating, this is restoring there energy levels and starting a new week")
+    def hibernate(self):
+        """Activate when user clicks hibernate button."""
+        messagebox.showinfo("Hibernating", "Your hive bees are currently hibernating, this is restoring their energy levels and starting a new week")
         state = logic.game_hive.hibernate()
-        cheack_condition(state)
+        check_condition(state)
         self.config_all()
 
-    def ExspandHive(self):
-        """Activate when user clicks increse population button."""
+    def expand_hive(self):
+        """Activate when user clicks increase population button."""
         if variables.energy_level >= 20:
             self.parent.attributes("-disabled", True)
-            self.exspand_widow = ExspandHive(config_root(self.parent))
+            self.expand_widow = ExpandHive(config_root(self.parent))
         else:
-            messagebox.showerror("Not enough energy", f"Sorry you dont have the required 20 energy for that try hybernating to restore it?")
+            messagebox.showerror("Not enough energy", f"Sorry you dont have the required 20 energy for that try hibernating to restore it?")
 
     def forage_for_honey(self):
         """Activate when user clicks forage button."""
@@ -191,20 +191,20 @@ class HiveWindow:
         if answer:
             if variables.energy_level >= 30: 
                 honey_found, bees_dead, state = logic.game_hive.forage_for_honey()
-                cheack_condition(state)
-                messagebox.showinfo("Back from foraging", f"A new week has past your bees have arived back from foraging where they found {honey_found} honey, Unfortunitly {bees_dead} bees died in the prosses.")
+                check_condition(state)
+                messagebox.showinfo("Back from foraging", f"A new week has passed your bees have arrived back from foraging where they found {honey_found} honey, Unfortunately {bees_dead} bees died in the process.")
                 self.config_all()
             else:
-                messagebox.showerror("Not enough energy", f"Sorry you dont have the required 30 energy for that try hybernating to restore it")
+                messagebox.showerror("Not enough energy", f"Sorry you dont have the required 30 energy for that try hibernating to restore it")
 
     def level_up_bees(self):
         """Activate when user clicks level up button."""
         percentage = round(math.log(variables.honey/2) ** 1.5, 2)
-        answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random atrabute by {percentage}%, are you sure you want to risk it?")
+        answer = messagebox.askyesno("Level up bees", f"Leveling up your bees will use half of your honey to upgrade a random Attribute by {percentage}%, are you sure you want to risk it?")
         if answer:
-            random_atribute, new_value, state = logic.game_hive.level_up()
-            cheack_condition(state)
-            messagebox.showinfo("Leveled Up", f"A new week has past, your bees {random_atribute} has inscressed to {new_value} but your honey has droped to {variables.honey}.")
+            random_attribute, new_value, state = logic.game_hive.level_up()
+            check_condition(state)
+            messagebox.showinfo("Leveled Up", f"A new week has passed, your bees {random_attribute} has Increased to {new_value} but your honey has dropped to {variables.honey}.")
             self.config_all()
 
     def give_up(self):
@@ -214,8 +214,8 @@ class HiveWindow:
             root.destroy()
 
 
-class ExspandHive:
-    """Call when user exspands hive."""
+class ExpandHive:
+    """Call when user expands hive."""
 
     def __init__(self, parent):
         """Create tk elements."""
@@ -226,7 +226,7 @@ class ExspandHive:
         # Configs the main frame
         self.container_frame = config_frame(parent, 4, 4, True, 0, 0, False)
 
-        self.nav_label = tk.Label(self.container_frame, text="Incress Population", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
+        self.nav_label = tk.Label(self.container_frame, text="Increase Population", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
         self.nav_label.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
         self.count_label = tk.Label(self.container_frame, text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR)
@@ -238,11 +238,11 @@ class ExspandHive:
         self.add_bees = tk.Button(self.container_frame, text="+ 100 bees", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.add_to_bees)
         self.add_bees.grid(row=1, column=2, columnspan=2, sticky="nsew")
 
-        self.conffirmation_button = tk.Button(self.container_frame, text="Confirm", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.adapt_total)
-        self.conffirmation_button.grid(row=2, column=0, columnspan=4, sticky="nsew")
+        self.confirmation_button = tk.Button(self.container_frame, text="Confirm", font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_B, fg=variables.FORGROUND_COLOR, command=self.adapt_total)
+        self.confirmation_button.grid(row=2, column=0, columnspan=4, sticky="nsew")
 
-        self.conffirmation_button = tk.Button(self.container_frame, text="Cancel", font=variables.FONT_STATS, bg=variables.ACCENT_COLOR, fg=variables.FORGROUND_COLOR, command=self.cancel)
-        self.conffirmation_button.grid(row=3, column=0, columnspan=4, sticky="nsew")
+        self.confirmation_button = tk.Button(self.container_frame, text="Cancel", font=variables.FONT_STATS, bg=variables.ACCENT_COLOR, fg=variables.FORGROUND_COLOR, command=self.cancel)
+        self.confirmation_button.grid(row=3, column=0, columnspan=4, sticky="nsew")
 
     def add_to_bees(self):
         """On button click add 100 bees to count."""
@@ -250,7 +250,7 @@ class ExspandHive:
             self.add_bee_count += 100
             self.count_label.config(text=f"Plus {self.add_bee_count} Bees For {self.add_bee_count*5} Honey")
         else:
-            messagebox.showerror("Not enoughg honey", f"You dont have enough honey for that")
+            messagebox.showerror("Not enough honey", f"You dont have enough honey for that")
 
     def minus_from_bees(self):
         """On button click subtract 100 bees to count."""
@@ -265,12 +265,12 @@ class ExspandHive:
         if self.add_bee_count == 0:
             messagebox.showerror("No change detected", f"You Have selected a quantity of 0 bees!")
             return
-        messagebox.showinfo("Population Incressed", f"A new week has past, your bees population has incressed by {self.add_bee_count} bees, your honey supply has decressed to {variables.honey - self.add_bee_count*5}")
+        messagebox.showinfo("Population Increased", f"A new week has passed, your bees population has Increased by {self.add_bee_count} bees, your honey supply has decreased to {variables.honey - self.add_bee_count*5}")
         variables.bee_population += self.add_bee_count
         variables.honey -= self.add_bee_count*5
 
-        state = logic.game_hive.incress_population()
-        cheack_condition(state)
+        state = logic.game_hive.increase_population()
+        check_condition(state)
  
         main_window.parent.attributes("-disabled", False)
         main_window.config_all()
@@ -290,14 +290,14 @@ def config_root(parent):
     return child_root
 
 
-def config_frame(parent, cols, rows, visability, row_pos, col_pos, adaptive):
+def config_frame(parent, cols, rows, visibility, row_pos, col_pos, adaptive):
     """Configure the frames."""
     # A frame for all content
     frame = tk.Frame(parent, bg=variables.BACKGROUND_COLOR_A, highlightthickness=0)
-    if visability is True :
+    if visibility is True :
         frame.grid(row=row_pos, column=col_pos, sticky="nsew")
 
-    # Configures rows and columbs differently depending if adaptive is True
+    # Configures rows and columns differently depending if adaptive is True
     if adaptive is True :
         for i in range(cols):
             frame.columnconfigure(i, weight=1, uniform="stat_cols", minsize=50)
@@ -332,23 +332,23 @@ def create_entry(parent, message, func):
 
 def create_radio(parent, my_list, message, func):
     """Create a tk radio."""
-    # Lable
+    # Label
     my_label = tk.Label(parent, text=message, font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_C, fg=variables.FORGROUND_COLOR)
     my_label.grid(row=0, column=0, columnspan=4, sticky="nsew")
     # Setup
     list_variable = tk.StringVar()
     list_variable.set(str(my_list[0]))
     radios = []
-    # Creating Radials
+    # Creating Radios
     for i, item in enumerate(my_list):
         new_radio = tk.Radiobutton(parent, text=str(item), variable=list_variable, value=item, command=func, font=variables.FONT_STATS, bg=variables.BACKGROUND_COLOR_C, fg=variables.FORGROUND_COLOR, selectcolor=variables.BACKGROUND_COLOR_B)
         new_radio.grid(row=i+1, column=0, columnspan=6, sticky="sew")
         radios.append(new_radio)
-    # Returns the instance verable
+    # Returns the instance variable
     return list_variable
 
 
-def cheack_condition(game_state):
+def check_condition(game_state):
     """Check win condition."""
     if game_state == "continue":
         return
