@@ -1,6 +1,6 @@
 """This file is the backend of the app."""
 
-import variables
+import contents.variables as variables
 import random
 import math
 

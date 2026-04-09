@@ -2,8 +2,8 @@
 
 import tkinter as tk
 from tkinter import messagebox
-import variables
-import logic
+import contents.variables as variables
+import contents.logic as logic
 import math
 
 
